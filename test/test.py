@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 class TestKelownaWebsite:
 
     def __init__(self) -> None:
-        driver = webdriver.Chrome("/usr/local/bin/chromedriver")
+        driver = webdriver.Chrome()
         driver.get("https://testing-replica-3a311.web.app")
         print(driver.title)
 
