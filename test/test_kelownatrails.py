@@ -3,28 +3,38 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+import pytest
+
+URL = "https://testing-replica-3a311.web.app"
 
 
-class TestKelownaWebsite:
-
-    def __init__(self) -> None:
-        chrome_options = Options()
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--no-sandbox")
-        chrome_options.add_argument("--disable-dev-shm-usage")
-        chrome_options.add_argument(
-            "--remote-debugging-port=9222"
-        )  # optional, useful for debugging
-        chrome_options.add_argument(
-            "--disable-gpu"
-        )  # Disable GPU acceleration (usually not needed, but can help)
-
-        service = Service("/usr/local/bin/chromedriver")  # Path to your ChromeDriver
-        driver = webdriver.Chrome(service=service, options=chrome_options)
-
-        driver.get("https://testing-replica-3a311.web.app")
+@pytest.fixture
+def driver():
+    chrome_options = Options()
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--headless")
+    service = Service("/usr/local/bin/chromedriver")
+    driver = webdriver.Chrome(service=service, options=chrome_options)
+    try:
+        driver.get(URL)
         print(driver.title)
+        driver.find_element(By.ID, "GroupSize").send_keys("5")
+        yield driver
+        driver.quit()
+    except Exception as e:
+        driver.quit()
+        raise e
 
 
-if __name__ == "__main__":
-    test = TestKelownaWebsite()
+def test_add_member(driver):
+    add_member(driver)
+    output = driver.find_element(By.ID, "members").text
+    assert "Smith, Anne" in output
+
+
+def add_member(driver):
+    driver.find_element(By.ID, "lastname").send_keys("Smith")
+    driver.find_element(By.ID, "firstname").send_keys("Anne")
+    driver.find_element(By.ID, "addMemberBtn").click()
