@@ -9,7 +9,7 @@ sudo yum -y install python3
 sudo yum -y install python3-pip
 sudo pip3 install virtualenv
 
-# INstall selenium environment
+# Install selenium environment
 mkdir tmp
 cd tmp
 
@@ -29,12 +29,13 @@ cd ..
 virtualenv -p python3.9 lab1_2
 source ./lab1_2/bin/activate
 pip3 install selenium
+pip3 install pytest
 
-git init
-git clone https://github.com/eduval/Kelownatrails
-cp -r Kelownatrails/public .
-cp Kelownatrails/Jenkinsfile.txt .
-rm -rf Kelownatrails/
+# git init
+# git clone https://github.com/eduval/Kelownatrails
+# cp -r Kelownatrails/public .
+# cp Kelownatrails/Jenkinsfile.txt .
+# rm -rf Kelownatrails/
 
 # Install Jenkins
 sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
