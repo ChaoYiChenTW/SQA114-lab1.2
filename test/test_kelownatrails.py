@@ -34,6 +34,13 @@ def test_add_member(driver):
     assert "Smith, Anne" in output
 
 
+def test_delete_member(driver):
+    add_member(driver)
+    driver.find_element(By.ID, "deleteMemberBtn").click()
+    output = driver.find_element(By.ID, "members").text
+    assert "Smith, Anne" not in output
+
+
 def add_member(driver):
     driver.find_element(By.ID, "lastname").send_keys("Smith")
     driver.find_element(By.ID, "firstname").send_keys("Anne")
