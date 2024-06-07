@@ -50,6 +50,13 @@ pipeline {
         }
     }
     stage('Production'){
+        when{
+               expression {
+                 // Read the test result from the file id true continue
+                def testResult = readFile(env.TEST_RESULT_FILE).trim()
+                return testResult == 'true'
+                }           
+             }
         steps{
                sh 'firebase deploy -P production-sqa113 --token "$FIREBASE_DEPLOY_TOKEN"'
         }
