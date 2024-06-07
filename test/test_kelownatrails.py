@@ -8,7 +8,9 @@ from selenium.webdriver.common.by import By
 
 URL = "https://testing-replica-3a311.web.app"
 
-CHROME_DRIVER_PATH = os.path.expanduser("~/.local/bin/chromedriver")
+CHROME_DRIVER_PATH = os.path.expanduser(
+    "~/.local/bin/chromedriver-linux64/chromedriver"
+)
 
 
 @pytest.fixture

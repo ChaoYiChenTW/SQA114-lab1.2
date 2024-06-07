@@ -10,7 +10,7 @@ pipeline {
                 sh 'mkdir -p ~/.local/bin'
                 sh 'wget https://storage.googleapis.com/chrome-for-testing-public/125.0.6422.141/linux64/chromedriver-linux64.zip -O ~/chromedriver_linux64.zip'
                 sh 'unzip ~/chromedriver_linux64.zip -d ~/.local/bin/'
-                sh 'chmod +x ~/.local/bin/chromedriver'
+                sh 'chmod +x ~/.local/bin/chromedriver-linux64/chromedriver'
                 sh 'chromedriver --version'
             }
     }
