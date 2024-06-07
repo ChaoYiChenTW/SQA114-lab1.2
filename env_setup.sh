@@ -4,16 +4,24 @@
 sudo yum -y update
 sudo yum -y install git
 
+# Install Node.js and npm
+sudo yum -y install nodejs
+sudo yum -y install npm
+
+# Install Firebase
+sudo npm install -g firebase-tools --no-optional
+
 # Install python3, pip, and virtualenv
 sudo yum -y install python3
 sudo yum -y install python3-pip
-sudo pip3 install virtualenv
-
-# Install selenium environment
-mkdir tmp
-cd tmp
+sudo python3 -m pip install selenium
+sudo python3 -m pip install --upgrade urllib3==1.26.7
+sudo python3 -m pip install selenium
+sudo python3 -m pip install pytest
 
 # Prepare Google Chrome and ChromeDriver
+mkdir tmp
+cd tmp
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
 sudo yum install -y google-chrome-stable_current_x86_64.rpm
 CHROME_VERSION=$(google-chrome --version | grep -oP "\d+\.\d+\.\d+\.\d+")
@@ -22,20 +30,8 @@ wget https://storage.googleapis.com/chrome-for-testing-public/$CHROME_VERSION/li
 unzip chromedriver-linux64.zip
 sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
 chromedriver --version
-
 cd ..
-
-# Create a virtual environment
-virtualenv -p python3.9 lab1_2
-source ./lab1_2/bin/activate
-pip3 install selenium
-pip3 install pytest
-
-# git init
-# git clone https://github.com/eduval/Kelownatrails
-# cp -r Kelownatrails/public .
-# cp Kelownatrails/Jenkinsfile.txt .
-# rm -rf Kelownatrails/
+rm -rf tmp
 
 # Install Jenkins
 sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
@@ -48,4 +44,3 @@ sudo yum -y install java-21-amazon-corretto
 sudo service jenkins start
 sudo fallocate -l 1G /swapfile_extend_1GB
 sudo mount -o remount,size=5G /tmp/
-
