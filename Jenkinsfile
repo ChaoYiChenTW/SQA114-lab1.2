@@ -6,9 +6,19 @@ pipeline {
   }  
   stages{
     stage('Building'){
-        steps{
-            echo 'Building'
-        }
+        steps {
+                sh 'sudo apt-get update'
+                sh 'sudo apt-get install -y wget unzip'
+                sh 'wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm'
+                sh 'sudo yum install -y google-chrome-stable_current_x86_64.rpm'
+                sh 'CHROME_VERSION=$(google-chrome --version | grep -oP "\d+\.\d+\.\d+\.\d+")'
+                sh 'echo "Installed Google Chrome version: $CHROME_VERSION"'
+                sh 'wget https://storage.googleapis.com/chrome-for-testing-public/$CHROME_VERSION/linux64/chromedriver-linux64.zip'
+                sh 'unzip chromedriver-linux64.zip'
+                sh 'sudo mv chromedriver /usr/local/bin/'
+                sh 'sudo chmod +x /usr/local/bin/chromedriver'
+                sh 'chromedriver --version'
+            }
     }
     stage('Testing'){
         steps{

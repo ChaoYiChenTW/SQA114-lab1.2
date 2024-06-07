@@ -41,6 +41,6 @@ sudo yum remove java-22-amazon-corretto.x86_64
 sudo yum -y install java-21-amazon-corretto
 
 # Run Jenkins
-sudo service jenkins start
 sudo fallocate -l 1G /swapfile_extend_1GB
 sudo mount -o remount,size=5G /tmp/
+sudo service jenkins start
