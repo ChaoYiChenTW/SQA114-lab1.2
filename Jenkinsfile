@@ -7,14 +7,13 @@ pipeline {
   stages{
     stage('Building'){
         steps {
-                sh 'sudo apt-get update'
-                sh 'sudo apt-get install -y wget unzip'
-                sh 'wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm'
-                sh 'sudo yum install -y google-chrome-stable_current_x86_64.rpm'
-                sh 'wget https://storage.googleapis.com/chrome-for-testing-public/125.0.6422.141/linux64/chromedriver-linux64.zip'
-                sh 'unzip chromedriver-linux64.zip'
-                sh 'sudo mv chromedriver /usr/local/bin/'
-                sh 'sudo chmod +x /usr/local/bin/chromedriver'
+                sh 'mkdir -p ~/.local/bin'
+                sh 'wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O ~/google-chrome-stable_current_amd64.deb'
+                sh 'dpkg-deb -x ~/google-chrome-stable_current_amd64.deb ~/chrome'
+                sh 'mv ~/chrome/opt/google/chrome ~/.local/bin/'
+                sh 'wget https://chromedriver.storage.googleapis.com/125.0.6422.141/chromedriver_linux64.zip -O ~/chromedriver_linux64.zip'
+                sh 'unzip ~/chromedriver_linux64.zip -d ~/.local/bin/'
+                sh 'chmod +x ~/.local/bin/chromedriver'
                 sh 'chromedriver --version'
             }
     }

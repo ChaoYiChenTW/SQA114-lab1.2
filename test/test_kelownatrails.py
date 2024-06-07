@@ -1,11 +1,14 @@
+import os
+
+import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-import pytest
 
 URL = "https://testing-replica-3a311.web.app"
+
+CHROME_DRIVER_PATH = os.path.expanduser("~/.local/bin/chromedriver")
 
 
 @pytest.fixture
@@ -15,7 +18,7 @@ def driver():
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--headless")
-    service = Service("/usr/local/bin/chromedriver")
+    service = Service(CHROME_DRIVER_PATH)
     driver = webdriver.Chrome(service=service, options=chrome_options)
     try:
         driver.get(URL)
