@@ -8,7 +8,7 @@ pipeline {
     stage('Building'){
         steps {
                 sh 'mkdir -p ~/.local/bin'
-                sh 'wget https://chromedriver.storage.googleapis.com/125.0.6422.141/chromedriver_linux64.zip -O ~/chromedriver_linux64.zip'
+                sh 'wget https://storage.googleapis.com/chrome-for-testing-public/$CHROME_VERSION/linux64/chromedriver-linux64.zip -O ~/chromedriver_linux64.zip'
                 sh 'unzip ~/chromedriver_linux64.zip -d ~/.local/bin/'
                 sh 'chmod +x ~/.local/bin/chromedriver'
                 sh 'chromedriver --version'
